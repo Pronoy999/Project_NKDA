@@ -1,3 +1,4 @@
+DELIMTER $$
 DROP PROCEDURE IF EXISTS sp_tblUsers;
 CREATE PROCEDURE sp_tblUsers
 BEGIN
@@ -26,4 +27,5 @@ BEGIN
                 ) ;
             end;
         end if;
-end;
+END$$
+DELIMITER ;
