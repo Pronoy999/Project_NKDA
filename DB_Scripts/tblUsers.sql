@@ -1,6 +1,5 @@
-DELIMTER $$
 DROP PROCEDURE IF EXISTS sp_tblUsers;
-CREATE PROCEDURE sp_tblUsers
+CREATE PROCEDURE sp_tblUsers()
 BEGIN
         DECLARE CurrentSchema varchar(20);
         SELECT DATABASE() INTO CurrentSchema;
@@ -27,5 +26,4 @@ BEGIN
                 ) ;
             end;
         end if;
-END$$
-DELIMITER ;
+END;
