@@ -68,7 +68,12 @@ constants.HTTP_UNAUTHORIZED_CODE = 401;
  * Messages.
  */
 constants.WELCOME_MESSAGE = "Welcome to NKDA API.";
+constants.TOKEN_ID = "tokenId";
 
+/**
+ * SP Names.
+ */
+constants.SP_VALIDATE_TOKEN = "sp_ValidateAPIToken";
 /**
  * exporting the constants.
  */

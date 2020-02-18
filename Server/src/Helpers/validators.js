@@ -84,10 +84,11 @@ validator.validateBoolean = (data) => {
 /**
  * Method to check the validity.
  * @param token: The Token to be checked.
- * @returns {Promise<any>}
+ * @returns {Promise<Boolean>}
  */
 validator.validateToken = (token) => {
     return new Promise((resolve, reject) => {
+
 
     });
 };
