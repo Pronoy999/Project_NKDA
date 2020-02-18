@@ -13,7 +13,3 @@ BEGIN
     VALUES (emailId, password, userID);
     SELECT userID;
 end;
-
-CALL sp_CreateUser('Pronoy'
-    ,'Mukherjee','mukherjee_pronoy999@gmail.com',
-    'Admin','abc123',@userID);
