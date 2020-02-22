@@ -98,7 +98,8 @@ database._runQuery = (queryStatement, connection) => {
     return new Promise((resolve, reject) => {
         if (validator.validateString(queryStatement)) {
             printer.printHighlightedLog(queryStatement);
-            connection.query(queryStatement, (err, result) => {
+            connection.query(queryStatement, (err, result, fields) => {
+                printer.printLog(fields);
                 if (err) {
                     printer.printError(err.stack);
                     printer.printError("WRONG QUERY: " + queryStatement);

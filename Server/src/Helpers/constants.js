@@ -58,6 +58,7 @@ constants.REQUEST_TYPE = "type";
  * Response Codes and messages.
  */
 constants.BAD_REQUEST_CODE = 400;
+constants.HTTP_NOT_FOUND_CODE = 404;
 constants.FORBIDDEN_REQUEST_CODE = 403;
 constants.INTERNAL_SERVER_ERROR_CODE = 500;
 constants.HTTP_SUCCESS = 200;
@@ -68,6 +69,7 @@ constants.HTTP_UNAUTHORIZED_CODE = 401;
  * Messages.
  */
 constants.WELCOME_MESSAGE = "Welcome to NKDA API.";
+constants.INVALID_PATH = "Invalid Path";
 constants.TOKEN_ID = "tokenId";
 
 /**

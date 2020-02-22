@@ -1,4 +1,3 @@
-const printer = require('./../Helpers/printer');
 const validator = require('./../Helpers/validators');
 const constants = require('./../Helpers/constants');
 const moment = require('moment');
@@ -57,7 +56,7 @@ generator.generateRandomToken = (len) => {
  * @returns {string}: The date and time separated by space.
  */
 generator.generateCurrentTime = () => {
-    return moment.unix(((new Date().getTime()) / 1000))
+    return  moment.unix(((new Date().getTime()) / 1000))
         .tz(constants.TIME_ZONE).format(constants.DATE_TIME_FORMAT);
 };
 /**
