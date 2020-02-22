@@ -26,11 +26,12 @@ server.unifiedServer = function (req, res) {
     const method = req.method.toLowerCase();
     const queryString = parsedUrl.query;
     const decoder = new StringDecoder('utf-8');
-    const header = req.headers['content-type'];
+    const contentType = req.headers['content-type'];
+    const apiToken = req.headers[constants.API_TOKEN_KEY];
     const chosenHandler = router.getPath(firstRoute);
     let postData = "";
     let handlerData;
-    if (header === 'application/octet-stream') {
+    if (contentType === 'application/octet-stream') {
         let data = [];
         req.on('data', d => {
             data.push(d);
@@ -41,8 +42,9 @@ server.unifiedServer = function (req, res) {
                 method,
                 queryString,
                 data: buffer,
-                request: req
+                request: req,
             };
+            handlerData[constants.API_TOKEN_KEY] = apiToken;
             execHandlers(handlerData);
         });
     } else {
@@ -86,16 +88,21 @@ server.unifiedServer = function (req, res) {
      * @param handlerData: The request object after parsing it.
      */
     function execHandlers(handlerData) {
-        if (handlerData.method === 'options') {
-            sendResponse({}, 200);
-        } else {
-            let promise = chosenHandler(handlerData);
-            promise.then((responseObject) => {
-                sendResponse(responseObject[0], responseObject[1]);
-            }).catch(err => {
-                sendResponse(err[0], err[1]);
-            });
-        }
+        validator.validateToken(handlerData[constants.API_TOKEN_KEY]).then(() => {
+            delete handlerData[constants.API_TOKEN_KEY];
+            if (handlerData.method === 'options') {
+                sendResponse({}, 200);
+            } else {
+                let promise = chosenHandler(handlerData);
+                promise.then((responseObject) => {
+                    sendResponse(responseObject[0], responseObject[1]);
+                }).catch(err => {
+                    sendResponse(err[0], err[1]);
+                });
+            }
+        }).catch(err => {
+            //TODO: Send the 403 response.
+        });
     }
 };
 //TODO: Add the HTTPS Server.

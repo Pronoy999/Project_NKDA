@@ -1,6 +1,6 @@
 const constants = require('./../Helpers/constants');
 const printer = require('./../Helpers/printer');
-const Api = require('./../Entity/api');
+const validator = require('./../Helpers/validators');
 const handlerObj = {};
 /**
  * Handler to test the API.
@@ -9,13 +9,6 @@ const handlerObj = {};
  */
 handlerObj.ping = (dataObject) => {
     return new Promise((resolve) => {
-        const api = new Api(dataObject.queryString[constants.API_TOKEN_KEY]);
-        api.isValidToken().then(() => {
-            printer.printHighlightedLog("Valid Token.");
-        }).catch(err => {
-            printer.printError("Invalid Token.");
-            printer.printError(err);
-        });
         resolve([constants.WELCOME_MESSAGE, constants.HTTP_SUCCESS]);
     });
 };
@@ -29,4 +22,17 @@ handlerObj.notFound = (dataObject) => {
         resolve([constants.INVALID_PATH, constants.HTTP_NOT_FOUND_CODE]);
     });
 };
+handlerObj.users = (dataObject) => {
+    return new Promise((resolve, reject) => {
+        const apiToken = dataObject.queryString[constants.API_TOKEN_KEY];
+        validator.validateToken(apiToken).then(() => {
+
+        }).catch(err => {
+
+        });
+    });
+};
+/**
+ * Exporting the Module.
+ */
 module.exports = handlerObj;

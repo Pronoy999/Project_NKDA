@@ -1,4 +1,6 @@
 const constants = require('./constants');
+const printer = require('./printer');
+const Api = require('./../Entity/api');
 const validator = {};
 /**
  * Method to check the validity of the email.
@@ -88,8 +90,13 @@ validator.validateBoolean = (data) => {
  */
 validator.validateToken = (token) => {
     return new Promise((resolve, reject) => {
-
-
+        const api = new Api(token);
+        api.isValidToken().then(() => {
+            resolve(true);
+        }).catch(err => {
+            printer.printError(err);
+            reject(err);
+        });
     });
 };
 /**
