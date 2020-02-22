@@ -65,6 +65,15 @@ constants.HTTP_SUCCESS = 200;
 constants.HTTP_ACCEPTED_OKAY = 201;
 constants.HTTP_UNAUTHORIZED_CODE = 401;
 
+constants.RESPONSE_KEY = "res";
+constants.RESPONSE_KEY_ERROR = "error";
+constants.RESPONSE_SUCESS_LEVEL_1 = "1";
+constants.RESPONSE_SUCCESS_LEVEL_2 = "2";
+constants.ERROR_LEVEL_KEY = "error_level";
+constants.ERROR_LEVEL_1 = "1";
+constants.ERROR_LEVEL_2 = "2";
+constants.ERROR_LEVEL_3 = "3";
+constants.ERROR_LEVEL_4 = "4";
 /**
  * Messages.
  */
