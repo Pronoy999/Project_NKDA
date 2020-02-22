@@ -1,7 +1,8 @@
 DROP PROCEDURE IF EXISTS sp_CreateUser;
 CREATE PROCEDURE sp_CreateUser(IN firstName varchar(255), IN lastName varchar(255), IN emailId varchar(255),
-                               IN role varchar(6), IN password varchar(255),out userID INT)
+                               IN role varchar(6), IN password varchar(255))
 BEGIN
+    DECLARE userID INT;
     SELECT AUTO_INCREMENT INTO userID FROM information_schema.TABLES WHERE TABLE_NAME = 'users' LIMIT 1;
     INSERT INTO users(first_name,
                       last_name,
