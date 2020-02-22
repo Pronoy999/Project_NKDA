@@ -16,9 +16,8 @@ class Api {
         return new Promise((resolve, reject) => {
             const query = "CALL " + constants.SP_VALIDATE_TOKEN + "('" + this._token + "')";
             database.query([query]).then(_resultSet => {
-                printer.printLog(_resultSet);
-                const result = _resultSet[0][0];
-                printer.printLog("RESULT:" + result.toString());
+                const result = _resultSet[0][0][0];
+                printer.printLog(result[0][constants.TOKEN_ID]);
                 if (result[constants.TOKEN_ID] > 0) {
                     resolve(true);
                 } else {

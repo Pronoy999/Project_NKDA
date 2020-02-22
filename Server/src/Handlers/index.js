@@ -13,6 +13,7 @@ handlerObj.ping = (dataObject) => {
         api.isValidToken().then(() => {
             printer.printHighlightedLog("Valid Token.");
         }).catch(err => {
+            printer.printError("Invalid Token.");
             printer.printError(err);
         });
         resolve([constants.WELCOME_MESSAGE, constants.HTTP_SUCCESS]);

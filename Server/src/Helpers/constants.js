@@ -76,6 +76,7 @@ constants.TOKEN_ID = "tokenId";
  * SP Names.
  */
 constants.SP_VALIDATE_TOKEN = "sp_ValidateAPIToken";
+constants.SP_CREATE_USER = "sp_CreateUser";
 /**
  * exporting the constants.
  */
