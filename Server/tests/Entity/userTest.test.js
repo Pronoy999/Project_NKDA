@@ -9,12 +9,12 @@ test("Should return user id for user Creation", () => {
         console.error(err);
     });
 });
-test("Should not create user for duplicate Data", () => {
-    const user = new User(-1, "Pronoy", "Mukherjee", "mukherjee@yahoo.in");
-    user.createUser("abc123", "User").then(userId => {
-        console.log(userId);
-        expect(userId).toBeInstanceOf(Number);
+test("Should get the data of a user", () => {
+    const user = new User(-1, "Pronoy", "", "mukherjee@yahoo.in");
+    user.getUserDetails().then(userDetails => {
+        console.log(userDetails);
+        expect(userDetails).toBeInstanceOf(Array);
     }).catch(err => {
-        console.error(err);
-    });
+        expect(err).toBeInstanceOf(Promise);
+    })
 });

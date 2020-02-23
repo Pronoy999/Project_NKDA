@@ -61,6 +61,7 @@ server.unifiedServer = function (req, res) {
                 postData,
                 request: req
             };
+            handlerData[constants.API_TOKEN_KEY] = apiToken;
             execHandlers(handlerData);
         });
     }

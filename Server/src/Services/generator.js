@@ -113,8 +113,29 @@ generator.generateCurrentYear = () => {
  * @param params: The array containing the params.
  * @returns {string}: the string parameter CSVs.
  */
-generator.generateParams = (params) => {
-    return "(" + params.map(p => "'" + p + "'").join(",") + ")";
+generator.generateStringParams = (params) => {
+    try {
+        if (params.length > 0)
+            return params.map(p => "'" + p + "'").join(",");
+        else
+            return "";
+    } catch (e) {
+        return "";
+    }
+};
+/**
+ * Method to generate the number params.
+ * @param params: The array containing numbers.
+ * @returns {string}
+ */
+generator.generateNumberParams = (params) => {
+    try {
+        if (params.length > 0)
+            return params.map(p => p).join(",");
+        return "";
+    } catch (e) {
+        return "";
+    }
 };
 /**
  * Exporting modules.

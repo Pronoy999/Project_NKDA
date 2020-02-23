@@ -1,5 +1,4 @@
 const constants = require('./constants');
-const printer = require('./printer');
 const validator = {};
 /**
  * Method to check the validity of the email.
@@ -86,7 +85,6 @@ validator.validateToken = (token) => {
         api.isValidToken().then(() => {
             resolve(true);
         }).catch(err => {
-            printer.printError(err);
             reject(err);
         });
     });

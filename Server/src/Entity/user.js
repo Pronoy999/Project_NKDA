@@ -49,10 +49,10 @@ class User {
     getUserDetails() {
         return new Promise((resolve, reject) => {
             database.runSp(constants.SP_GET_USER_DETAILS, [validator.validateEmail(this._email) ? this._email : "",
-                validator.validateString(this._firstName) ? this._firstName : "", validator.validateString(this._lastName) ? this._lastName : "",
-                validator.validateNumber(this._userId) ? this._userId : 0])
+                    validator.validateString(this._firstName) ? this._firstName : "", validator.validateString(this._lastName) ? this._lastName : ""],
+                [validator.validateNumber(this._userId) ? this._userId : 0])
                 .then(_resultSet => {
-                    const result = _resultSet[0][0][0];
+                    const result = _resultSet[0];
                     resolve(result);
                 }).catch(err => {
                 printer.printError(err);

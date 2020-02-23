@@ -114,17 +114,28 @@ database._runQuery = (queryStatement, connection) => {
 /**
  * Method to execute the Stored Procedures.
  * @param spName: The name of the SPs.
- * @param params: The array containing the parameters.
+ * @param stringParams: The array containing the parameters.
+ * @param numberParams: The number array for parameters.
  * @returns {Promise<unknown>}: Resolves result if executed, else false.
  */
-database.runSp = (spName, params) => {
+database.runSp = (spName, stringParams, numberParams) => {
     return new Promise((resolve, reject) => {
         if (!validators.validateString(spName)) {
             reject("Invalid SP Name");
             return;
         }
-        const spParams = generator.generateParams(params);
-        const spQuery = "CALL " + spName + spParams;
+        const spStringParams = generator.generateStringParams(stringParams);
+        const spNumberParams = generator.generateNumberParams(numberParams);
+        let spQuery;
+        if (spStringParams.length > 0 && spNumberParams.length > 0) {
+            spQuery = "CALL " + spName + "(" + spStringParams + "," + spNumberParams + ")";
+        } else if (spStringParams.length > 0 && spNumberParams.length === 0) {
+            spQuery = "CALL " + spName + "(" + spStringParams + ")";
+        } else if (spStringParams.length === 0 && spNumberParams > 0) {
+            spQuery = "CALL " + spName + "(" + spStringParams + ")";
+        } else {
+            spQuery = spQuery = "CALL " + spName + "()";
+        }
         printer.printHighlightedLog(spQuery);
         pool.getConnection((err, conn) => {
             if (err) {

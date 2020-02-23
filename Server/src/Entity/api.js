@@ -14,13 +14,15 @@ class Api {
      */
     isValidToken() {
         return new Promise((resolve, reject) => {
-            const query = "CALL " + constants.SP_VALIDATE_TOKEN + "('" + this._token + "')";
-            database.runSp(constants.SP_VALIDATE_TOKEN,[this._token]).then(_resultSet => {
-                const result = _resultSet[0][0][0];
-                printer.printLog(result[0][constants.TOKEN_ID]);
-                if (result[constants.TOKEN_ID] > 0) {
-                    resolve(true);
-                } else {
+            database.runSp(constants.SP_VALIDATE_TOKEN, [this._token]).then(_resultSet => {
+                try {
+                    const result = _resultSet[0][0];
+                    if (result[constants.TOKEN_ID] > 0) {
+                        resolve(true);
+                    } else {
+                        reject(false);
+                    }
+                } catch (e) {
                     reject(false);
                 }
             }).catch(err => {
