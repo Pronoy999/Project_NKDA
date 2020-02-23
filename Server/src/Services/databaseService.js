@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const printer = require('./../Helpers/printer');
 const validator = require('./../Helpers/validators');
+const generator = require('./generator');
 const config = require('./../Helpers/config');
 /**
  * Creating pool for Database.
@@ -108,6 +109,40 @@ database._runQuery = (queryStatement, connection) => {
                 }
             });
         }
+    });
+};
+/**
+ * Method to execute the Stored Procedures.
+ * @param spName: The name of the SPs.
+ * @param params: The array containing the parameters.
+ * @returns {Promise<unknown>}: Resolves result if executed, else false.
+ */
+database.runSp = (spName, params) => {
+    return new Promise((resolve, reject) => {
+        if (validator.validateString(spName)) {
+            reject("Invalid SP Name");
+            return;
+        }
+        const spParams = generator.generateParams(params);
+        const spQuery = spName + spParams;
+        printer.printHighlightedLog(spQuery);
+        pool.getConnection((err, conn) => {
+            if (err) {
+                printer.printError(err);
+                reject(err);
+            } else {
+                conn.query(spQuery, (err, results) => {
+                    conn.release();
+                    if (err) {
+                        printer.printError(err);
+                        reject(err);
+                    } else {
+                        printer.printHighlightedLog("Query :" + spQuery + " Executed.");
+                        resolve(results);
+                    }
+                });
+            }
+        });
     });
 };
 /**

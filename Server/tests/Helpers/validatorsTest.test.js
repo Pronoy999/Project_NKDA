@@ -12,3 +12,6 @@ test("should return true for valid email", () => {
 test("should return false for invalid Email", () => {
     expect(validators.validateEmail("a@@sADH@.COM")).toBe(false);
 });
+test("Should return false for empty array", () => {
+    expect(validators.validateArray([])).toBe(false);
+});

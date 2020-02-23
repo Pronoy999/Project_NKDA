@@ -56,7 +56,7 @@ generator.generateRandomToken = (len) => {
  * @returns {string}: The date and time separated by space.
  */
 generator.generateCurrentTime = () => {
-    return  moment.unix(((new Date().getTime()) / 1000))
+    return moment.unix(((new Date().getTime()) / 1000))
         .tz(constants.TIME_ZONE).format(constants.DATE_TIME_FORMAT);
 };
 /**
@@ -107,6 +107,14 @@ generator.generateDaysInMonth = (year, month) => {
  */
 generator.generateCurrentYear = () => {
     return moment().year();
+};
+/**
+ * Method to generate the SP params.
+ * @param params: The array containing the params.
+ * @returns {string}: the string parameter CSVs.
+ */
+generator.generateParams = (params) => {
+    return "(" + params.map(p => "'" + p + "'").join(",") + ")";
 };
 /**
  * Exporting modules.

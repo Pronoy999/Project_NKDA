@@ -73,7 +73,7 @@ validator.validateUndefined = (data) => {
  * @returns {boolean} true if array else false.
  */
 validator.validateArray = (data) => {
-    return Array.isArray(data);
+    return Array.isArray(data) && data.length > 0;
 };
 /**
  * Method to check whether the data is boolean data type of not.
