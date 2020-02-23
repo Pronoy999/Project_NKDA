@@ -21,16 +21,17 @@ BEGIN
         SET whereClaus = concat(whereClaus, ' u.email_id=', '''', email, '''');
         SET andFlag = 1;
     END IF;
+
     IF userID > 0 and andFlag = 1 THEN
         SET whereClaus = concat(whereClaus, ' and u.id=', '''', userID, '''');
     ELSEIF userID > 0 AND andFlag = 0 THEN
-        SET whereClaus = concat(whereClaus, 'u.id=', '''', userID, '''');
+        SET whereClaus = concat(whereClaus, ' u.id=', userID);
     END IF;
-    IF andFlag = 0 THEN
+    IF userID <= 0 and andFlag = 0 THEN
         set whereClaus = '1 = 2';
     END IF;
 
-    SET @q = concat('SELECT u.id, u.first_name, u.last_name, u.email_id, u.role_id FROM users u WHERE ', whereClaus);
+    SET @q= concat('SELECT u.id, u.first_name, u.last_name, u.email_id, u.role_id FROM users u WHERE ', whereClaus);
 
     PREPARE stmt FROM @q;
     EXECUTE stmt;
