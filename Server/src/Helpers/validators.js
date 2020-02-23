@@ -1,6 +1,5 @@
 const constants = require('./constants');
 const printer = require('./printer');
-const Api = require('./../Entity/api');
 const validator = {};
 /**
  * Method to check the validity of the email.
@@ -14,14 +13,6 @@ validator.validateEmail = (email) => {
         return false;
     }
     return email.match(constants.EMAIL_REGEX) !== null;
-};
-/**
- * Method to validate normal string.
- * @param data: the data to be checked.
- * @returns {boolean} true: if valid, else false.
- */
-validator.validateString = (data) => {
-    return typeof (data) === 'string' && data.length > 0;
 };
 /**
  * Method to validate phone number.
@@ -42,7 +33,7 @@ validator.validatePhone = (phoneNumber) => {
  */
 validator.validateNumber = (number) => {
     if (typeof (number) !== 'undefined' && number !== null) {
-        return Number(number) > -2;
+        return Number(number) > -1;
     }
     return false;
 };
@@ -90,6 +81,7 @@ validator.validateBoolean = (data) => {
  */
 validator.validateToken = (token) => {
     return new Promise((resolve, reject) => {
+        const Api = require('./../Entity/api');
         const api = new Api(token);
         api.isValidToken().then(() => {
             resolve(true);
@@ -98,6 +90,14 @@ validator.validateToken = (token) => {
             reject(err);
         });
     });
+};
+/**
+ * Method to validate normal string.
+ * @param data: the data to be checked.
+ * @returns {boolean} true: if valid, else false.
+ */
+validator.validateString = (data) => {
+    return typeof (data) === 'string' && data.length > 0;
 };
 /**
  * exporting validator.

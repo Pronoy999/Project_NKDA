@@ -4,7 +4,7 @@ test('should return true for valid number', () => {
     expect(validators.validateNumber(200)).toBe(true);
 });
 test('should return false for invalid number', () => {
-    expect(validators.validateNumber('abc')).toBe(false);
+    expect(validators.validateNumber(-1)).toBe(false);
 });
 test("should return true for valid email", () => {
     expect(validators.validateEmail("mukherjee_pronoy@yahoo.in")).toBe(true);
@@ -14,4 +14,7 @@ test("should return false for invalid Email", () => {
 });
 test("Should return false for empty array", () => {
     expect(validators.validateArray([])).toBe(false);
+});
+test("Should check for valid String", () => {
+    expect(validators.validateString("Hello world")).toBe(true);
 });

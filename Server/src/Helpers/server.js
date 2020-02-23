@@ -8,6 +8,7 @@ const config = require('./config');
 const StringDecoder = require('string_decoder').StringDecoder;
 const router = require('./../Helpers/router');
 const generator = require('./../Services/generator');
+const responseGenerator = require('./../Services/responseGenerator');
 const validator = require('./../Helpers/validators');
 const printer = require('./../Helpers/printer');
 const constants = require('./constants');
@@ -88,21 +89,28 @@ server.unifiedServer = function (req, res) {
      * @param handlerData: The request object after parsing it.
      */
     function execHandlers(handlerData) {
-        validator.validateToken(handlerData[constants.API_TOKEN_KEY]).then(() => {
-            delete handlerData[constants.API_TOKEN_KEY];
-            if (handlerData.method === 'options') {
-                sendResponse({}, 200);
-            } else {
-                let promise = chosenHandler(handlerData);
-                promise.then((responseObject) => {
-                    sendResponse(responseObject[0], responseObject[1]);
-                }).catch(err => {
-                    sendResponse(err[0], err[1]);
-                });
-            }
-        }).catch(err => {
-            //TODO: Send the 403 response.
-        });
+        if (handlerData.path !== 'ping') {
+            validator.validateToken(handlerData[constants.API_TOKEN_KEY]).then(() => {
+                delete handlerData[constants.API_TOKEN_KEY];
+                if (handlerData.method === 'options') {
+                    sendResponse({}, 200);
+                } else {
+                    let promise = chosenHandler(handlerData);
+                    promise.then((responseObject) => {
+                        sendResponse(responseObject[1], responseObject[0]);
+                    }).catch(err => {
+                        sendResponse(err[1], err[0]);
+                    });
+                }
+            }).catch(err => {
+                printer.printError(err);
+                const response = responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_4,
+                    constants.FORBIDDEN_MESSAGE);
+                sendResponse(response[1], response[0]);
+            });
+        } else {
+            sendResponse(constants.WELCOME_MESSAGE, 200);
+        }
     }
 };
 //TODO: Add the HTTPS Server.

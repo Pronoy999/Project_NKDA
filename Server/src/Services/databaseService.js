@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const printer = require('./../Helpers/printer');
-const validator = require('./../Helpers/validators');
+const validators = require('./../Helpers/validators');
 const generator = require('./generator');
 const config = require('./../Helpers/config');
 /**
@@ -22,7 +22,7 @@ const database = {};
  */
 database.query = (queries) => {
     return new Promise((resolve, reject) => {
-        if (!validator.validateArray(queries)) {
+        if (!validators.validateArray(queries)) {
             reject("NOT AN ARRAY.");
             return;
         }
@@ -97,7 +97,7 @@ database.query = (queries) => {
  */
 database._runQuery = (queryStatement, connection) => {
     return new Promise((resolve, reject) => {
-        if (validator.validateString(queryStatement)) {
+        if (validators.validateString(queryStatement)) {
             printer.printHighlightedLog(queryStatement);
             connection.query(queryStatement, (err, result, fields) => {
                 if (err) {
@@ -119,12 +119,12 @@ database._runQuery = (queryStatement, connection) => {
  */
 database.runSp = (spName, params) => {
     return new Promise((resolve, reject) => {
-        if (validator.validateString(spName)) {
+        if (!validators.validateString(spName)) {
             reject("Invalid SP Name");
             return;
         }
         const spParams = generator.generateParams(params);
-        const spQuery = spName + spParams;
+        const spQuery = "CALL " + spName + spParams;
         printer.printHighlightedLog(spQuery);
         pool.getConnection((err, conn) => {
             if (err) {

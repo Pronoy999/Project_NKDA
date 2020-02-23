@@ -1,6 +1,8 @@
 const constants = require('./../Helpers/constants');
 const printer = require('./../Helpers/printer');
-const validator = require('./../Helpers/validators');
+
+const users = require('./user');
+
 const handlerObj = {};
 /**
  * Handler to test the API.
@@ -22,13 +24,23 @@ handlerObj.notFound = (dataObject) => {
         resolve([constants.INVALID_PATH, constants.HTTP_NOT_FOUND_CODE]);
     });
 };
+/**
+ * Handler for users request.
+ * @param dataObject
+ * @returns {Promise<unknown>}
+ */
 handlerObj.users = (dataObject) => {
     return new Promise((resolve, reject) => {
-        const apiToken = dataObject.queryString[constants.API_TOKEN_KEY];
-        validator.validateToken(apiToken).then(() => {
-
+        let promise;
+        switch (dataObject.path) {
+            case "users":
+                promise = users.users(dataObject);
+                break;
+        }
+        promise.then(response => {
+            resolve(response);
         }).catch(err => {
-
+            reject(err);
         });
     });
 };

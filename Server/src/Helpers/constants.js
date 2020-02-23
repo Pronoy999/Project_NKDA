@@ -53,6 +53,12 @@ constants.ROLE_EMPLOYEE = "Employee";
 constants.API_TOKEN_KEY = "key";
 constants.REQUEST_TYPE = "type";
 
+/**
+ * API Methods.
+ */
+constants.HTTP_POST = "post";
+constants.HTTP_GET = "get";
+constants.HTTP_PUT = "put";
 
 /**
  * Response Codes and messages.
@@ -66,6 +72,12 @@ constants.HTTP_ACCEPTED_OKAY = 201;
 constants.HTTP_UNAUTHORIZED_CODE = 401;
 
 constants.RESPONSE_KEY = "res";
+constants.ERROR_MESSAGE = "Error";
+constants.FORBIDDEN_MESSAGE = "Incorrect Token or token expired.";
+constants.INSUFFICIENT_DATA_MESSAGE = "Insufficient Data";
+constants.INVALID_METHOD_MESSAGE = "Invalid Method";
+constants.INVALID_PATH = "Invalid Path";
+constants.INTERNAL_SERVER_ERROR_MESSAGE = "Internal Server Error";
 constants.RESPONSE_KEY_ERROR = "error";
 constants.RESPONSE_SUCESS_LEVEL_1 = "1";
 constants.RESPONSE_SUCCESS_LEVEL_2 = "2";
@@ -78,14 +90,26 @@ constants.ERROR_LEVEL_4 = "4";
  * Messages.
  */
 constants.WELCOME_MESSAGE = "Welcome to NKDA API.";
-constants.INVALID_PATH = "Invalid Path";
 constants.TOKEN_ID = "tokenId";
+constants.USER_ID = "userID";
 
 /**
  * SP Names.
  */
 constants.SP_VALIDATE_TOKEN = "sp_ValidateAPIToken";
 constants.SP_CREATE_USER = "sp_CreateUser";
+constants.SP_GET_USER_DETAILS = "sp_GetUserDetails";
+
+/**
+ * Column Names
+ */
+constants.USER_FIRST_NAME = "first_name";
+constants.USER_LAST_NAME = "last_name";
+constants.USER_EMAIL_ID = "email_id";
+constants.USER_ROLE_ID = "role_id";
+constants.USER_ROLE_USER = "User";
+constants.USER_ROLE_ADMIN = "Admin";
+constants.USER_PASSWORD = "password_hash";
 /**
  * exporting the constants.
  */
