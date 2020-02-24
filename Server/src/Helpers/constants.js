@@ -99,6 +99,7 @@ constants.USER_ID = "userID";
 constants.SP_VALIDATE_TOKEN = "sp_ValidateAPIToken";
 constants.SP_CREATE_USER = "sp_CreateUser";
 constants.SP_GET_USER_DETAILS = "sp_GetUserDetails";
+constants.SP_CREATE_TOILET = "sp_CreateToilet";
 
 /**
  * Column Names
@@ -109,6 +110,7 @@ constants.USER_EMAIL_ID = "email_id";
 constants.USER_ROLE_ID = "role_id";
 constants.USER_ROLE_USER = "User";
 constants.USER_ROLE_ADMIN = "Admin";
+constants.TOILET_ID = "toilet_id";
 constants.USER_PASSWORD = "password_hash";
 /**
  * exporting the constants.
