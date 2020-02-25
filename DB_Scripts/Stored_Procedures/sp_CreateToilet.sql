@@ -25,4 +25,6 @@ BEGIN
                 end while;
         end;
     end if;
+    SELECT @toiletID as toilet_id;
 end;
+CALL sp_CreateToilet('NM','addaa',2,1,1);
