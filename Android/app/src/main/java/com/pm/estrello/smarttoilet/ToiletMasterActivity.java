@@ -25,7 +25,7 @@ public class ToiletMasterActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String toiletName = toilets.get(position);
-
+                changeActivity(toiletName);
             }
         });
     }
@@ -49,6 +49,8 @@ public class ToiletMasterActivity extends AppCompatActivity {
     private void changeActivity(String toiletName) {
         Bundle bundle = new Bundle();
         bundle.putString("toiletName", toiletName);
-        //Intent intent=new Intent(ToiletMasterActivity.this,)
+        Intent intent = new Intent(ToiletMasterActivity.this, AmmoniaDetails.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

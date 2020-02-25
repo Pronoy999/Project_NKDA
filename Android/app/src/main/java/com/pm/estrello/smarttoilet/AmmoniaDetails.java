@@ -17,6 +17,9 @@ public class AmmoniaDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ammonia_details);
         initializeViews();
+        Bundle bundle = getIntent().getExtras();
+        String toiletName = bundle.getString("toiletName");
+        setTitle(toiletName);
     }
 
     /**

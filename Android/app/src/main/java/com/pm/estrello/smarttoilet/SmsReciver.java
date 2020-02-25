@@ -2,6 +2,7 @@ package com.pm.estrello.smarttoilet;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -51,8 +52,13 @@ public class SmsReciver extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void createNotification() {
         Context context = SmartToiletApp.getInstance();
+        Intent intent = new Intent(context, ToiletMasterActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "1")
+                .setSmallIcon(R.drawable.user_login)
                 .setContentTitle("New Alert!")
+                .setContentIntent(pendingIntent)
                 .setContentText("A toilet is breaching ammonia level")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManager notificationManager = (NotificationManager)
